@@ -54,7 +54,7 @@ def generate_melody(chain, start_bigram):
 
 st.markdown('# Generate a National Anthem')
 st.markdown('##### George Altshuler & Hollie Zheng')
-st.markdown('###### ......................................................................')
+st.markdown('<hr style="border:2px solid gray"/>', unsafe_allow_html=True)  # HTML horizontal line
 
 
 df = pd.read_csv('anthems.csv')

@@ -5,6 +5,17 @@ import json
 import random
 
 
+st.markdown("""
+<style>
+hr.dotted {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    border-top: 1px dotted gray;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
 if 'lyrics' not in st.session_state:
     st.session_state.lyrics = ""
 if 'melody_ints' not in st.session_state:
@@ -54,7 +65,7 @@ def generate_melody(chain, start_bigram):
 
 st.markdown('# Generate a National Anthem')
 st.markdown('##### George Altshuler & Hollie Zheng')
-st.markdown('<hr style="border:2px solid gray"/>', unsafe_allow_html=True)  # HTML horizontal line
+st.markdown('<hr class="dotted"/>', unsafe_allow_html=True)
 
 
 df = pd.read_csv('anthems.csv')
@@ -76,7 +87,7 @@ if st.button('Generate Anthem Lyrics'):
 st.write(st.session_state.lyrics)
 
 
-st.markdown('###### ......................................................................')
+st.markdown('<hr class="dotted"/>', unsafe_allow_html=True)
 
 
 st.subheader('National Anthem Melody Generator')

@@ -102,8 +102,58 @@ melody = generate_melody(melody_chain, start_bigram)  # Pass the chain as an arg
 melody_ints = [int(x) for x in melody[1:-1] if x != '<END>']
 if st.button('Generate Anthem Melody'):
     melody = generate_melody(melody_chain, start_bigram)  # Generate melody
-    # Update melody integers in the session state
-    st.session_state.melody_ints = str([int(x) for x in melody[1:-1] if x != '<END>'])
+    melody = [int(x) for x in melody[1:-1] if x != '<END>']
+    st.session_state.melody_ints = str(melody)
 
 # Display the stored melody integers
 st.write(st.session_state.melody_ints)
+
+melody_str = ', '.join(map(str, melody))
+
+# HTML content before the melody list
+html_content_before = """
+<html>
+<head>
+  <script type="module">
+    import { Chuck } from 'https://cdn.jsdelivr.net/npm/webchuck/+esm';
+    window.addEventListener('DOMContentLoaded', (event) => {
+      document.getElementById('action').addEventListener('click', async () => {
+        // Initialize default ChucK object, if not already initialized
+        if (!window.theChuck) {
+          window.theChuck = await Chuck.init([]);
+        }
+        // Run ChucK code
+        window.theChuck.runCode(`
+            ["""
+
+# HTML content after the melody list
+html_content_after = """] @=> int notes[];
+
+            SinOsc osc => dac;
+
+            0.5::second => dur noteDur;
+
+            for(0 => int i; i < notes.size(); i++)
+            {
+                Std.mtof(notes[i]) => osc.freq;
+                noteDur => now;
+            }
+            1::second => now;
+
+        `);
+      });
+    });
+  </script>
+</head>
+<body>
+  <button id="action">Start and Play</button>
+</body>
+</html>
+
+"""
+
+# Combine the parts to form the final HTML content
+html_content = html_content_before + melody_str + html_content_after
+
+# Use the Streamlit components API to render the custom HTML
+components.html(html_content, height=200)

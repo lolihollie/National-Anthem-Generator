@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import json
 import random
+import streamlit.components.v1 as components
 
 
 st.markdown("""

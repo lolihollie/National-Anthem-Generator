@@ -54,8 +54,7 @@ def generate_melody(chain, start_bigram):
 
 st.markdown('# Generate a National Anthem')
 st.markdown('##### George Altshuler & Hollie Zheng')
-st.markdown('###### ................................................................................'
-            '..............................................................')
+st.markdown('###### ..........................................................................................')
 
 
 df = pd.read_csv('anthems.csv')
@@ -77,8 +76,7 @@ if st.button('Generate Anthem Lyrics'):
 st.write(st.session_state.lyrics)
 
 
-st.markdown('###### .................................................................................'
-            '.............................................................')
+st.markdown('###### ..........................................................................................')
 
 
 st.subheader('National Anthem Melody Generator')
